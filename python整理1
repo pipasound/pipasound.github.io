@@ -1,0 +1,198 @@
+​
+1，Alt+N 回到上一个语句
+
+Alt+p回到下一个语句
+
+2，print(" ") (注意和c区分printf )
+
+print（"5+3")>>5+3   ""里面原样输出
+
+print(5+3)>>8
+
+python里面可以容下更大的数
+
+3，\n下一行
+
+4，print(" "+" ")>>>拼接
+
+print（" "*8)>>>8遍
+
+5，三引号可以实现多行文本
+
+print（''''''
+
+        xxx
+
+        xxx!""")（双引号 单引号均可）
+
+6,python不能把完全不同的东西加在一起
+
+print("hi boy"+5)   (x)>>>字符串与数字
+
+7，字符串中嵌入双引号
+
+1) print("i love \"you\" ")
+
+2)两边单引中间双引print ('**"*"**')   
+
+8，条件句 if guess==8
+
+                   （缩进很重要）print() (缩进一次级别降低一次）
+
+9，teacher=小甲鱼
+
+print（teacher）
+
+10，使用变量前，先对其赋值
+
+        变量可包含字母 数字 下划线 ，但变量不以数字开头
+
+11，打印多个斜杠
+
+        str=r'C:\now' (注：结尾不能有\)
+
+      若必须有>>>print(r'C:\now''\\')==print(r'C:\now'+'\\')    加号可以省略
+
+12，BIF内置函数，方便编写脚本程序
+
+        print(打印到屏幕) input（接受用户信输入,当在函数括号内写下问题时，会在终端打印出来等待你输入）
+
+           以上均属于函数
+
+13，vscode识别不了str,直接print
+
+14,
+
+e记法
+
+ e>>10 （浮点型）
+
+2.5e-5>>0.000025
+
+1.5e2>>150.0
+
+15,
+
+bool类型 ：true=1 false=0
+
+16, 获得关于类型
+
+1),type(520)
+
+<class'int'>
+
+2)isinstance(a,str)
+
+ true
+
+16,字符串打印出来自动加’ ‘
+
+17，常用操作符：+-*/ ** //
+
+      1)/: 6/4=1.5(有小数点)
+
+       2）//：6//4=1
+
+                  6.0//4=1.0
+
+       3）**：3**2=9
+
+                   -3**2=-9
+
+                   -（3**2）=9
+
+                    3**3=27
+
+18，逻辑运算符
+
+1）and：两边都为真>>true   
+
+    (3<4)and（4<5)>>>true
+
+2)or:两边均为假>>>true
+
+3）not:not 0>>true
+
+            not 4>>false
+
+19,python里面3<4<5成立
+
+20，优先级问题
+
+幂运算**
+
+正负号+= -=
+
+算术操作符* / // + -
+
+比较大小< <= > >= == !=
+
+逻辑运算符not and or
+
+21,input返回值永远是字符串
+
+22,s为字符串
+
+s.isalnum() 所有字符都是数字和字母 真true假false
+
+s.isalpha()所有字符都是字母 真true假false
+
+s.isdigit()所有字符都是数字 真true假false
+
+s.islower()所有字符小写真true假false
+
+s.isupper()所有字符大写
+
+s.istitle()所有单词都是首字母大写
+
+s.isspace()所有字符都是空白字符
+
+>>>s='I LOVE YOU'
+
+>>>s.isupper()
+
+>>>True
+
+23,pyhton里面没有else if 是elif
+
+24,import random 产生随机数
+
+      secret=random.randint(1.10) 范围1-10内
+
+25，python里面默认换行
+
+若想单行输出print（" ",end=" "）
+
+26（0and1)>>0
+
+(1and 2)>>2
+
+(0or1)>>1
+
+(1or2)>>1
+
+27,可以同时定义多个变量
+
+x,y=4,5
+
+28,
+
+x,y=4,5
+if x<y:
+   small=x
+else:
+   small=y
+例子可以改为
+small=x if x<y else y
+       
+
+29,assert 断言
+
+>>>assert 3>4  (x)
+
+AssertionError(即后边条件为假，程序崩溃)《我们可以用他在程序中置入检查点来》
+
+        确保程序中，某个条件为真
+
+
+​
