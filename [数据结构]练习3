@@ -1,0 +1,711 @@
+@[TOC]
+#  实验一
+```c
+/*
+假设带头结点的单链表head是升序排列的，设计算法函数linklist insert(linklist head,datatype x)，
+将值为x的结点插入到链表head中，并保持链表有序性。
+分别构造插入到表头、表中和表尾三种情况的测试用例进行测试。
+*/
+/**********************************/
+/*文件名称：lab3_03.c                 */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+void  insert(linklist head ,datatype x)
+{
+	linklist pre,p,s;
+	pre=head;
+	p=head->next;
+	while(p&&p->info<x)//往下执行 
+		{
+		pre=p;
+		p=p->next;
+		}
+	s=(linklist)malloc(sizeof(node));//分配内存，插入 
+	s->info=x;
+	s->next=p;
+	pre->next=s;
+}
+int main()
+{   datatype x;
+    linklist head;
+    printf("输入一组升序排列的整数：\n");
+    head=creatbyqueue();				/*尾插入法建立带头结点的单链表*/
+    print(head);
+    printf("请输入要插入的值：");
+    scanf("%d",&x);
+    insert(head,x);				    /*将输入的值插入到带头结点的单链表适当位置*/
+    print(head);
+    delList(head);
+    return 0;
+}
+```
+#  总结
+这里是void不用返回值，因为是头结点，直接插入就行
+#  实验二
+```c
+/*
+编写算法函数void  delallx(linklist head, int x)，删除带头结点单链表head中所有值为x的结点。
+*/
+/**********************************/
+/*文件名称：lab3_04.c                 */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+void  delallx(linklist head,int x)
+{
+	linklist pre,p; 
+	pre=head;
+	p=head->next;
+	while(p){//一直往下走
+	while(p&&p->info!=x){//查找x
+		pre=p;
+		p=p->next;
+	}
+	pre->next=p->next;//删除
+	free(p);
+	p=pre->next;
+	}
+}
+int main()
+{   datatype x;
+    linklist head;
+    head=creatbyqueue();				/*尾插入法建立带头结点的单链表*/
+    print(head);
+    printf("请输入要删除的值：");
+    scanf("%d",&x);
+    delallx(head,x);
+    print(head);
+    delList(head);
+    return 0;
+}
+```
+#  总结
+将链表大循环，查找到x就删除，记住p要赋值给pre-next才会继续往下走
+#  实验三
+```c
+/*
+已知线性表存储在带头结点的单链表head中，请设计算法函数void sort(linklist head)，将head中的结点按结点值升序排列。
+*/
+/**********************************/
+/*文件名称：lab3_05.c                 */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+void  sort(linklist head)
+{
+	linklist pre,p,s,q;
+	p=head->next;//初始化 
+	head->next=NULL;//初始化，为使q每次从头开始 
+	while(p){//大循环 
+		s=p;//存储p值 
+		p=p->next;//p往下走 
+		q=head->next;//从头循环 
+		pre=head;
+		while(q&&q->info<s->info){//q指向的数判断 
+			pre=q;
+			q=q->next;	
+		}
+		pre->next=s;//插入有序列表 
+		s->next=q;
+	} 
+	return q; 
+
+}
+int main()
+{        linklist head;
+         head=creatbyqueue();   		/*尾插法建立带头结点的单链表*/
+         print(head);    			    /*输出单链表head*/
+         sort(head);     				/*排序*/
+         print(head);
+         delList(head);
+         return 0;
+}
+```
+#  总结
+先将链表初始化，循环前设置链表头为空方便从头开始循环，循环中将链表每一个值都先存储，链表每走一步，新表将从头开始找能插入的点，没有就继续往下走，有就插入，接着循环
+#  实验四
+```c
+/*
+已知两个带头结点的单链表L1和L2中的结点值均已按升序排序，设计算法函数
+linklist mergeAscend (linklist L1,linklist L2)将L1和L2合并成一个升序的
+带头结单链表作为函数的返回结果；
+并设计main()函数进行测试。
+*/
+/**********************************/
+/*文件名称：lab3_06.c                 */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+linklist mergeAscend(linklist L1,linklist L2)
+{
+linklist L3,r,p,q;//新建立表
+L3=r=(linklist)malloc(sizeof(node));//分配空间,L3和r是一体的 
+p=L1->next;//p,q从开始指向 
+q=L2->next; 
+while(p&&q){//两者都存在 
+	if(p->info<q->info){//p的值小于q 
+		L1->next=p->next;//p往下走 ,相当于删除p为了将p插入R中不能直接把p指向下一个
+		r->next=p;//r插入新链表 
+		r=p;//r往前走 
+		p=L1->next;//p的值指向下一个 
+	}
+	else{
+		L2->next=q->next;
+		r->next=q;
+		r=q;
+		q=L2->next;
+	}
+} 
+	if(p) r->next=p;//连接L1剩余的数 
+	if(q) r->next=q;
+	free(L1);//这里释放的是一整条链 
+	free(L2);
+	return L3;
+}
+int main()
+{       linklist h1,h2,h3;
+         h1=creatbyqueue();     /*尾插法建立单链表,请输入升序序列*/
+         h2=creatbyqueue();
+         print(h1);
+         print(h2);
+         h3=mergeAscend(h1,h2);/*升序合并到h3*/
+         print(h3);
+         delList(h3);
+         return 0;
+}
+```
+#  总结
+两个升序表合成升序表，需要给新表新分配内存，比较两个链表第一个数的大小，把小的数拿出来插入新的链表中，这里采用的是```尾插法```。把新建的链表指向最后有剩余结点的链表，实现升序。记得释放前两个链表.（虽然p被置空了，但插入进新链表后，还要指向原链表，实现下一次循环）
+- 最后指向P或q是因为指向了头结点，可以代指一整条链
+#  实验五
+```c
+/*
+已知两个带头结点的单链表L1和L2中的结点值均已按升序排序，
+设计算法函数linklist mergeDescend (linklist L1,linklist L2)
+将L1和L2合并成一个降序的带头结单链表作为函数的返回结果；
+并设计main()函数进行测试。
+*/
+/**********************************/
+/*文件名称：lab3_06.c                 */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+
+linklist mergeDescend(linklist L1,linklist L2)
+{
+linklist L3,r,q,p;
+L3=r=(linklist)malloc(sizeof(node));
+L3->next=NULL;//记得这里是头插法 
+p=L1->next;
+q=L2->next;
+while(p&&q){
+	if(p->info<q->info){//p的值小于q
+	 	L1->next=p->next;//p往下走 ,相当于删除p为了将p插入R中不能直接把p指向下一个
+	 	p->next=r->next;//头插法 
+	 	r->next=p;
+	 	p=L1->next;//p的值指向下一个
+	}
+	else{
+	 	L2->next=q->next;//q往下走 ,相当于删除q为了将q插入R中不能直接把p指向下一个
+	 	q->next=r->next;//头插法 
+	 	r->next=q;
+	 	q=L2->next;//q的值指向下一个		
+	}
+}
+while(p){
+	L1->next=p->next;//先把p脱节下来 
+	p->next=r->next;
+	r->next=p;
+	p=L1->next;
+}
+while(q){
+		L2->next=q->next;//先把q脱节下来 
+		q->next=r->next;
+		r->next=q;
+		q=L2->next;
+}
+	free(L1);//这里释放的是一整条链 
+	free(L2);
+	return L3;
+}
+int main()
+{       linklist h1,h2,h3;
+         h1=creatbyqueue();     /*尾插法建立单链表,请输入升序序列*/
+         h2=creatbyqueue();
+         print(h1);
+         print(h2);
+         h3=mergeDescend(h1,h2);//降序合并请调用
+         print(h3);
+         delList(h3);
+         return 0;
+}
+```
+#  总结
+两个升序表合成降序表，需要给新表新分配内存，比较两个链表第一个数的大小，把小的数拿出来插入新的链表中，这里采用的是```头插法，所以注意开始时赋值新链表为空位 L3->next=NULL```。把新建的链表指向最后有剩余结点的链表，再次用头插法实现降序。记得释放前两个链表.```尽管p被置空了，但插入进新链表后，还要指向原链表，实现下一次循环```
+#  实验六
+```c
+/*
+设计一个算法linklist interSection(linklist L1,linklist L2)，
+求两个单链表表示的集合L1和L2的交集，并将结果用一个新的带头
+结点的单链表保存并返回表头地址。
+*/
+/**********************************/
+/*文件名称：lab3_07.c                 */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+linklist   interSection(linklist L1, linklist L2) {
+	linklist L3, r, p, q,s;
+	L3 =s= (linklist)malloc(sizeof(node));
+//	r = (linklist)malloc(sizeof(node));这个应该放进循环里面，因为不只分配一个空间 
+	p = L1->next;
+	while (p) //不用考虑q，只遍历完一个就行 
+	{
+		q = L2->next;//这里q的初始化应该在循环里面，因为每一次查找都是从头开始 
+		while (q && q->info != p->info) {
+			q = q->next;
+		}
+		if (q) {
+			r = (linklist)malloc(sizeof(node));//尾插法 
+			r->info=q->info;//为什么要存值，都有两个域。难道是因为p,q都是一条链？
+			s->next = r;
+			s=r;
+		}
+		p = p->next;
+	}
+	r->next=NULL; //尾插法一定要这样吗?是的 
+	return L3;
+}
+int main() {
+	linklist h1, h2, h3;
+	h1 = creatbyqueue();         /*尾插法建立单链表,输入时请勿输入重复数据*/
+	h2 = creatbyqueue();
+	print(h1);                   /*输出单链表h1*/
+	print(h2);
+	h3 = interSection(h1, h2);   /* 求h1和h2的交集*/
+	print(h3);
+	delList(h1);
+	delList(h2);
+	delList(h3);
+	return 0;
+}
+```
+#  总结
+ 取交集应该创建一个新的链表 ，选择其中一个作为要遍历的 链表，然后进行循环，每一次有相同的数就插入新链表中 ，因此需要每次循环都分配一个空间。尾插法记得最后赋值为空 
+
+#  实验七
+```c
+/*
+请编写一个算法函数void partion(linklist head)，
+将带头结点的单链表head中的所有值为奇数的结点调整
+到链表的前面，所有值为偶数的结点调整到链表的后面。
+*/
+
+/**********************************/
+/*文件名称：lab3_08.c             */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+void partion(linklist head)
+{
+linklist L3,r,p,pre,s;
+L3=r=(linklist)malloc(sizeof(node));//分配空间 
+L3=r=NULL;//一定一定记得这里要初始化！！ ！！ 
+pre=head;
+p=head->next;
+while(p){//偶数跳出循环 
+while(p&&p->info%2==1){//奇数的时候一步一步往下走 
+	pre=p;
+	p=p->next;
+}
+if(p){//当p为偶数 
+s=	(linklist)malloc(sizeof(node));//尾插法 
+s->info=p->info;//s的值指向p的值，注意是s的值！
+pre->next=p->next;//删除p 
+if(L3==NULL) L3=r=s;//新链表建立插入结点都要记得初始化 
+else{//尾插法出现了问题，还是要多练习 
+	r->next=s;
+	r=s; 
+}
+free(p);//释放原来空间 
+p=pre->next;//重新指向结点 
+ }
+}
+r->next=NULL;//新链表结束 
+if(L3)
+{
+pre->next=L3; //旧链表指向新链表	一定一定注意这里是pre->next=L3;不是p->next,本身p都为空了，p->next更空了 
+}
+return head;
+}
+int main()
+{        linklist head;
+         head=creatbyqueue();           /*尾插法建立带头结点的单链表*/
+         print(head);                   /*输出单链表head*/
+         partion(head);
+         print(head);
+         delList(head);
+         return 0;
+}
+```
+#  总结
+这一道题出现的bug太多了，调试了好久，我的思路是新添加了一个链表来放偶数，最后将只剩奇数的链表指向这个新链表。而且还有一个更简单的思路，就是直接将奇数插到第一个数的前面
+总结出现的bug：
+- 给新链表分配空间时，一定要注意初始化，即赋值为空
+```L3=r=(linklist)malloc(sizeof(node));L3=r=NULL;```
+- 对尾插法还是掌握的不够熟练
+```c
+	s=	(linklist)malloc(sizeof(node));//尾插法 分配空间
+	s->info=p->info;//s的值指向p的值，注意是s的值！不能省略成s或p,因为每个s或p都是一个地址，里面有两个域。
+	r->next=s;
+	r=s; 
+```
+- ```if(L3==NULL) L3=r=s;```这里是将新的结点插进链表。若链表是空的，新的结点也需要初始化
+- ```pre->next=L3; ```旧链表指向新链表	一定一定注意这里是pre->next=L3;不是p->next,本身p都为空了，p->next更空了 
+#  实验八
+```c
+/*
+编写一个程序，用尽可能快的方法返回带头结点单链表中倒数第k个结点的地址，如果不存在，则返回NULL。
+*/
+/**********************************/
+/*文件名称：lab3_09.c             */
+/**********************************/
+#include "slnklist.h"
+/*请将本函数补充完整，并进行测试*/
+linklist search(linklist head,int k)
+{
+linklist p,pre;
+int i=0;//为什么不是1 
+p=head->next;
+while(p){
+	p=p->next;
+	i++;
+	if(i==k){
+		break;
+	}
+}
+if(i<k){
+		return NULL;
+	}//这里注意k是倒数 
+pre=head->next;
+while(p){
+	p=p->next;
+	pre=pre->next;
+}
+return pre;//注意返回的是地址 
+}
+int main()
+{
+     int k;
+     linklist head,p;
+     head=creatbyqueue();        /*尾插法建立带头结点的单链表*/
+     print(head);                  /*输出单链表head*/
+     printf("k=");
+     scanf("%d",&k);
+     p=search(head,k);
+     if (p) printf("%d\n",p->info);
+     else
+         printf("Not Found!\n");
+     delList(head);
+     return 0;
+}
+```
+#  总结
+这里就是一个指针先走k步，然后另一个指针从头开始，双指针共同走，走到末尾的时候，第一个指针指的就是倒数第k
+我出现的bug
+- 刚开始要定义i=0，不是i=1
+# slinklist.h  
+```c
+#include <stdio.h>
+#include <stdlib.h>
+/**************************************/
+/* 链表实现的头文件，文件名slnklist.h */
+/**************************************/
+ typedef int datatype;
+ typedef struct link_node{
+   datatype info;
+   struct link_node *next;
+ }node;
+typedef node *linklist;
+/******************************************/
+/*函数名称：creatbystack() 		       	  */
+/*函数功能：头插法建立带头结点的单链表    */
+/******************************************/
+linklist creatbystack()
+{
+
+    linklist  head,s;
+    datatype x;
+    head=(linklist)malloc(sizeof(node));
+    head->next=NULL;
+
+    printf("请输入整数序列（空格分开，以0结束）:\n");
+    scanf("%d",&x);
+    while (x!=0)
+    {
+        s=(linklist)malloc(sizeof(node));
+        s->info=x;
+
+        s->next=head->next;
+        head->next=s;
+
+        scanf("%d",&x);
+    }
+    return head;
+}
+/***************************************/
+/*函数名称：creatbyqueue() 			   */
+/*函数功能：尾插法建立带头结点的单链表 */
+/***************************************/
+linklist creatbyqueue()
+{
+    linklist head,r,s;
+    datatype x;
+    head=r=(linklist)malloc(sizeof(node));
+    head->next=NULL;
+    printf("请输入整数序列（空格分开，以0结束）:\n");
+    scanf("%d",&x);
+    while (x!=0)
+    {
+         s=(linklist)malloc(sizeof(node));
+         s->info=x;
+         r->next=s;
+         r=s;
+         scanf("%d",&x);
+   }
+    r->next=NULL;
+    return head;
+}
+/**********************************/
+/*函数名称：print()		 			 */
+/*函数功能：输出带头结点的单链表      */
+/**********************************/
+void print(linklist head)
+{
+    linklist p;
+    int i=0;
+    p=head->next;
+    printf("List is:\n");
+    while(p)
+    {
+        printf("%7d",p->info);
+        i++;
+        if (i%10==0)    printf("\n");
+        p=p->next;
+    }
+    printf("\n");
+
+}
+
+/******************************************/
+/*函数名称：creatLink() 			      */
+/*函数功能：从文件中读入n个数据构成单链表 */
+/******************************************/
+linklist creatLink(char *f, int n)
+{
+    FILE *fp;
+    int i;
+    linklist s,head,r;
+    head=r=(linklist)malloc(sizeof(node));
+    head->next=NULL;
+    fp=fopen(f,"r");
+    if (fp==NULL)
+        return head;
+    else
+    {
+         for (i=0;i<n;i++)
+            {
+                s=(linklist)malloc(sizeof(node));
+                fscanf(fp,"%d",&(s->info));
+                r->next=s;
+                r=s;
+            }
+        r->next=NULL;
+        fclose(fp);
+        return head;
+    }
+}
+
+/*
+    函数名称：writetofile
+    函数功能：将链表内容存入文件f
+*/
+void writetofile(linklist head, char *f)
+{
+    FILE *fp;
+    linklist p;
+    int i=0;
+    fp=fopen(f,"w");
+    if (fp!=NULL)
+    {
+        p=head->next;
+        fprintf(fp,"%s","List is:\n");
+        while(p)
+        {
+            fprintf(fp,"%7d",p->info);
+            i++;
+            if (i%10==0)    fprintf(fp,"%c",'\n');
+            p=p->next;
+        }
+        fprintf(fp,"%c",'\n');
+        fclose(fp);
+    }
+    else    printf("创建文件失败!");
+
+}
+
+
+/**********************************/
+/*函数名称：delList()		 		 */
+/*函数功能：释放带头结点的单链表      */
+/**********************************/
+void delList(linklist head)
+{ linklist p=head;
+  while (p)
+  { head=p->next;
+    free(p);
+    p=head;
+  }
+}
+```
+#  实验九
+```c
+#include "dlink.h"
+//在带头结点的双链表中删除第一个值为x的结点
+void delx(dlinklist head , datatype x)
+{
+//带头结点，不用考虑开头结点
+dlinklist p;
+p=head->rlink ;
+while(p&&p->info!=x)
+	p=p->rlink;
+if(p){
+	if(p->rlink){//不是尾结点 
+		p->llink->rlink=p->rlink;
+		p->rlink->llink=p->llink; 
+	}else{//尾结点 
+		p->llink->rlink=NULL;
+	}
+	free(p);
+}
+
+
+}
+
+int main()
+{
+    dlinklist head;
+    datatype x;
+    head=creatDlinkList();
+    print(head);
+   printf("请输入要删除的结点：");
+    scanf("%d",&x);
+    delx(head,x);
+    print(head);
+    delList(head);
+    return 0;
+}
+```
+#  实验十
+```c
+#include "dlink.h"
+//假设双链表有序，将x插入到双链表中，保持其有序性
+void insert(dlinklist head, datatype x)
+{
+dlinklist p,r,t;
+p=head;//默认升序 
+r=(dlinklist)malloc(sizeof(dnode));
+r->info=x;
+r->llink=NULL;//初始化 
+r->rlink=NULL;
+while(p->rlink&&p->rlink->info<x){//找到要插入的点 
+	p=p->rlink;
+}
+t=p->rlink;
+r->llink=p;
+p->rlink=r;
+if(t)//中间插入
+{
+	t->llink=r;
+	r->rlink=t;
+}
+}
+int main()
+{
+    dlinklist head;
+    datatype x;
+    head=creatDlinkList();
+    print(head);
+   printf("请输入要删除的结点：");
+    scanf("%d",&x);
+    insert(head,x);
+    print(head);
+    delList(head);
+    return 0;
+}
+```
+#  总结
+双循环加头结点就不用考虑前面插入删除了
+#  dlink.h
+```c
+#include <stdio.h>
+#include <stdlib.h>
+typedef int datatype;
+typedef struct dlink_node{
+    datatype info;
+    struct dlink_node *llink,*rlink;
+}dnode;
+ typedef  dnode * dlinklist;
+//尾插法建立带头结点的双链表
+ dlinklist creatDlinkList()
+ {
+     dlinklist head,r,s;
+     datatype x;
+     //生成头结点
+     head=r=(dlinklist)malloc(sizeof(dnode));
+     r->llink=r->rlink=NULL;
+     printf("请输入一组整数，以0作为结束：\n");
+     scanf("%d",&x);
+     while (x)
+     {
+         //生成新结点
+         s=(dlinklist)malloc(sizeof(dnode));
+         s->info=x;
+         //插入到链尾
+         r->rlink=s;
+         s->llink=r;
+         r=s;
+         //输入下一个结点值
+         scanf("%d",&x);
+     }
+     r->rlink=NULL;
+     return head;
+ }
+
+ void print(dlinklist head)
+ {
+     dlinklist p;
+     p=head->rlink;
+     printf("dList is:\n");
+     while (p)
+     {
+         printf("%5d",p->info);
+         p=p->rlink;
+     }
+     printf("\n");
+ }
+void delList(dlinklist head)
+{
+    dlinklist s;
+    while (head)
+    {
+        s=head;
+        head=s->rlink;
+        free(s);
+    }
+}
+```
+## A New Post
+
+Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
