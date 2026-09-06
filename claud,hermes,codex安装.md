@@ -9,14 +9,16 @@
 ## 新的改变
 
 我们对Markdown编辑器进行了一些功能拓展与语法支持，除了标准的Markdown编辑器功能，我们增加了如下几点新功能，帮助你用它写博客：
- 1. **全新的界面设计** ，将会带来全新的写作体验；
- 2. 在创作中心设置你喜爱的代码高亮样式，Markdown **将代码片显示选择的高亮样式** 进行展示；
- 3. 增加了 **图片拖拽** 功能，你可以将本地的图片直接拖拽到编辑区域直接展示；
- 4. 全新的 **KaTeX数学公式** 语法；
- 5. 增加了支持**甘特图的mermaid语法[^1]** 功能；
- 6. 增加了 **多屏幕编辑** Markdown文章功能；
- 7. 增加了 **焦点写作模式、预览模式、简洁写作模式、左右区域同步滚轮设置** 等功能，功能按钮位于编辑区域与预览区域中间；
- 8. 增加了 **检查列表** 功能。
+
+  1. **全新的界面设计** ，将会带来全新的写作体验；
+  2. 在创作中心设置你喜爱的代码高亮样式，Markdown **将代码片显示选择的高亮样式** 进行展示；
+  3. 增加了 **图片拖拽** 功能，你可以将本地的图片直接拖拽到编辑区域直接展示；
+  4. 全新的 **KaTeX数学公式** 语法；
+  5. 增加了支持**甘特图的mermaid语法[^1]** 功能；
+  6. 增加了 **多屏幕编辑** Markdown文章功能；
+  7. 增加了 **焦点写作模式、预览模式、简洁写作模式、左右区域同步滚轮设置** 等功能，功能按钮位于编辑区域与预览区域中间；
+  8. 增加了 **检查列表** 功能。
+
 [^1]: [mermaid语法说明](https://mermaid.js.org/intro/)
 
 ## 功能快捷键
@@ -74,6 +76,7 @@ H~2~O is是液体。
 ## 如何插入一段漂亮的代码片
 
 去[博客设置](https://mp.csdn.net/console/configBlog)页面，选择一款你喜欢的代码片高亮样式，下面展示同样高亮的 `代码片`.
+
 ```javascript
 // An highlighted block
 var foo = 'bar';
@@ -93,7 +96,9 @@ var foo = 'bar';
 - [x] 完成任务
 
 ## 创建一个表格
+
 一个简单的表格是这么创建的：
+
 | 项目 | Value |
 | ---- | ----- |
 | 电脑 | $1600 |
@@ -101,15 +106,19 @@ var foo = 'bar';
 | 导管 | $1    |
 
 ### 设定内容居中、居左、居右
+
 使用`:---------:`居中
 使用`:----------`居左
 使用`----------:`居右
+
 |     第一列     |         第二列 | 第三列         |
 | :------------: | -------------: | :------------- |
 | 第一列文本居中 | 第二列文本居右 | 第三列文本居左 |
 
 ### SmartyPants
+
 SmartyPants 是一个文本转换工具，主要功能是将普通的 ASCII 标点符号自动转换为更美观的印刷体标点符号。例如：
+
 | 原始符号   | 转换后   | 说明                 |
 | ---------- | -------- | -------------------- |
 | `"引号"`   | “引号”   | 直引号变弯引号       |
@@ -119,6 +128,7 @@ SmartyPants 是一个文本转换工具，主要功能是将普通的 ASCII 标�
 | `...`      | …        | 三个点变省略号       |
 
 ## 创建一个自定义列表
+
 Markdown
 :  Text-to-HTML conversion tool
 
@@ -163,6 +173,7 @@ gantt
         计划一               :         des3, after des2, 5d
         计划二               :         des4, after des3, 5d
 ```
+
 - 关于 **甘特图** 语法，参考 [这儿][2],
 
 ## UML图表
@@ -180,7 +191,8 @@ Note right of 王五: 李四想了很长时间, 文字太长了<br/>不适合放
 李四-->>张三: 打量着王五...
 张三->>王五: 很好... 王五, 你怎么样?
 ```
-- 关于 **UML图表** 语法，参考 [这儿][5],
+
+- 关于 **UML图表** 语法，参考 [这儿][3],
 
 ## 流程图
 
@@ -191,7 +203,8 @@ A --> C(圆角长方形)
 B --> D{菱形}
 C --> D
 ```
-- 关于 **Mermaid** 语法，参考 [这儿][3],
+
+- 关于 **Mermaid** 语法，参考 [这儿][4],
 
 ## FLowchart流程图
 
@@ -209,22 +222,18 @@ cond(yes)->e
 cond(no)->op
 ```
 
-- 关于 **Flowchart流程图** 语法，参考 [这儿][4].
+- 关于 **Flowchart流程图** 语法，参考 [这儿][5].
 
 ## 导出与导入
 
 ###  导出
+
 如果你想尝试使用此编辑器, 你可以在此篇文章任意编辑。当你完成了一篇文章的写作, 在上方工具栏找到 **文章导出** ，生成一个.md文件或者.html文件进行本地保存。
 
 ### 导入
+
 如果你想加载一篇你写过的.md文件，在上方工具栏可以选择导入功能进行对应扩展名的文件导入，
 继续你的创作。
-
-[1]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
-[2]: https://mermaid.js.org/syntax/gantt.html
-[3]: https://mermaid.js.org/intro/
-[4]: http://adrai.github.io/flowchart.js/
-[5]: https://mermaid.js.org/syntax/sequenceDiagram.html
 
 ## 创建谷歌账号
 
@@ -233,20 +242,20 @@ duanjinhong44@gmail.com
 DJH12345zxc@
 
 ## 安装claude插入小白中转站
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/dd93e1067f6d422fbc0b01af983ab694.png)
 
 win+r--cmd
 
-![image-20260904214256043](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260904214256043.png)
 
-![image-20260904214319108](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260904214319108.png)
+外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传
 
 选1
 
 可以分类
 
-![image-20260904222621525](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260904222621525.png)
+外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传
 
-![image-20260904222656564](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260904222656564.png)
+
 
 用deepseek不用小白中转站
 
@@ -274,3 +283,9 @@ win+r----powershell  输入hermes打开
 
 # 一定记得切换ccswitch
 
+
+  [1]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+  [2]: https://mermaid.js.org/syntax/gantt.html
+  [3]: https://mermaid.js.org/syntax/sequenceDiagram.html
+  [4]: https://mermaid.js.org/intro/
+  [5]: http://adrai.github.io/flowchart.js/
