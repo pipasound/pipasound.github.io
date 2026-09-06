@@ -247,7 +247,9 @@ DJH12345zxc@
 win+r--cmd
 
 
-外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传
+<img width="449" height="154" alt="image" src="https://github.com/user-attachments/assets/902479d3-0010-481b-895b-80c2b216c259" />
+
+
 
 选1
 
